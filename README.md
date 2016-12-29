@@ -27,7 +27,6 @@ heck, just fork it!
 * [Python] 2.6 or later (no support for Python 3)
 * [Setuptools]
 * [Cheetah] is used in the generation of HTML reports
-* [M2Crypto] is used for cryptographic operations
 
 In addition, the following tools are used in building and testing the
 project.
@@ -40,7 +39,6 @@ All of these packages are available in most linux distributions
 
 [cheetah]: http://www.cheetahtemplate.org
 [pyxml]: http://www.python.org/community/sigs/current/xml-sig/
-[M2Crypto]: https://gitlab.com/m2crypto/m2crypto/
 
 [setuptools]: http://pythonhosted.org/setuptools/
 [gnu make]: http://www.gnu.org/software/make/
@@ -96,9 +94,7 @@ If you'd prefer to build an RPM, see the wiki entry for
 * jardiff - prints the deltas between the contents of a JAR, and runs
   classdiff on differing Java class files contained in the JARs
 
-* jarutil - creates JAR, signs JAR, verifies JAR signature
-
-* manifest - creates and queries JAR manifests
+* manifest - creates manifests, signs JAR with OpenSSL
 
 * distinfo - prints information about a mixed multi-jar/class
   distribution, such as provides/requires lists.

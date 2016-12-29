@@ -958,8 +958,6 @@ class JavaMemberInfo(object):
         self.is_method = is_method
         self.annotations = None
         self.invisible_annotations = None
-        self.parameter_annotations = None
-        self.invisible_parameter_annotations = None
 
 
     def deref_const(self, index):
@@ -1187,7 +1185,7 @@ class JavaMemberInfo(object):
         return bool(self.get_attribute("Deprecated"))
 
 
-    def _get_annotations(self, python_attr_name, java_attr_name, for_params=False):
+    def _get_annotations(self, python_attr_name, java_attr_name):
 
         annos = getattr(self, python_attr_name)
 
@@ -1198,12 +1196,7 @@ class JavaMemberInfo(object):
 
             else:
                 with unpack(buff) as up:
-                    if for_params:
-                        (param_count,) = up.unpack_struct(_B)
-                        annos = (tuple(up.unpack_objects(JavaAnnotation, self.cpool))
-                                for i in range(param_count))
-                    else:
-                        annos = up.unpack_objects(JavaAnnotation, self.cpool)
+                    annos = up.unpack_objects(JavaAnnotation, self.cpool)
                     annos = tuple(annos)
 
             setattr(self, python_attr_name, annos)
@@ -1233,30 +1226,6 @@ class JavaMemberInfo(object):
 
         return self._get_annotations("invisible_annotations",
                                      "RuntimeInvisibleAnnotations")
-
-
-    def get_parameter_annotations(self):
-      """
-      The RuntimeVisibleParameterAnnotations attribute.
-      Contains a tuple of JavaAnnotation instances for each param.
-
-      reference: http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.7.18
-      """
-      return self._get_annotations("parameter_annotations",
-                                   "RuntimeVisibleParameterAnnotations",
-                                   for_params=True)
-
-
-    def get_invisible_parameter_annotations(self):
-      """
-      The RuntimeInvisibleParameterAnnotations attribute.
-      Contains a tuple of JavaAnnotation instances for each param.
-
-      reference: http://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.7.19
-      """
-      return self._get_annotations("invisible_parameter_annotations",
-                                   "RuntimeInvisibleParameterAnnotations",
-                                   for_params=True)
 
 
     def get_annotationdefault(self):
@@ -1893,9 +1862,6 @@ class JavaAnnotation(dict):
 
     def __ne__(self, other):
         return not self.__eq__(other)
-
-    def __repr__(self):
-      return '@' + self.pretty_annotation()
 
 
 def _annotation_val_eq(left_tag, left_data, left_cpool,

@@ -14,7 +14,9 @@
   (possibly recursively) from discoverable locations (JAVA_HOME,
   CLASSPATH, etc) and output missing deps
 
-- add signature information to jarinfo.
+- write a jarsign verifier, and add signature information to jarinfo.
+
+- make manifest --verify actually do something
 
 - full classinfo --json support
 

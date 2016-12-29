@@ -59,17 +59,14 @@ Tests the reading and writing of the manifest file format, and
 checksum features.
 
 
-## JAR Handling Samples
+## JAR Signing Samples
 
-- Files: jarutil-sample1.jar, cli-sign-and-verify.jar,
-  sig-related-junk-files.jar, jarutil-signed.jar,
-  jarutil-signed-by-jarsigner.jar, ec.jar, ec-must-fail.jar
+- Files:  manifest-sample2.jar
 
 
 ## Example Certificate
 
-- Files: javatools.pem, javatools-cert.pem, ec-cert.pem, ec-key.pem, 
-  keystore.jks
+- Files: javatools.pem, javatools-cert.pem, keystore.jks
 
 Sample openssl key and certificate, and java key store with cert
 imported. The signing key is unencrypted, so no passphrase
